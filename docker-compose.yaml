@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  todo-app:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src/:/todo-api
+    networks:
+      - todo-net
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    
+    depends_on:
+      - database
+  
+  database:
+    image: postgres:14.0
+    ports:
+      - 5432:5432
+    networks:
+      - todo-net
+    environment:
+      - POSTGRES_USER=superuser
+      - POSTGRES_PASSWORD=topsecret
+      - POSTGRES_DB=db
+
+networks:
+  todo-net:
