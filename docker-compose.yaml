@@ -13,7 +13,8 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
     
     depends_on:
-      - database
+      database:
+        condition: service_healthy
   
   database:
     image: postgres:14.0
@@ -25,6 +26,11 @@ services:
       - POSTGRES_USER=superuser
       - POSTGRES_PASSWORD=topsecret
       - POSTGRES_DB=db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d db -U superuser"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   todo-net:
