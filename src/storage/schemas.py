@@ -11,6 +11,7 @@ class TaskBase(BaseModel):
 class CreateTaskDTO(BaseModel):
     title: str
     description: str | None
+    completed: bool | None
 
 class SearchTaskDTO(BaseModel):
     task_id: str | None
