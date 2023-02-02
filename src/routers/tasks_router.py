@@ -2,18 +2,10 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from services.task_service import TaskNotFoundException, TaskService
 from sqlalchemy.orm import Session
-from storage.database import SessionLocal
+from storage.database import get_db
 from storage.schemas import CreateTaskDTO, UpdateTaskDTO
 
 task_router = APIRouter()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 
 @task_router.get('/')
 def dead_root():

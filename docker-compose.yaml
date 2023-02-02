@@ -31,6 +31,21 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+      
+  test_database:
+    image: postgres:14.0
+    ports:
+      - 5431:5432
+    networks:
+      - todo-net
+    environment:
+      - POSTGRES_USER=superuser
+      - POSTGRES_PASSWORD=topsecret
+      - POSTGRES_DB=db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d db -U superuser"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 networks:
   todo-net:
