@@ -4,7 +4,12 @@ This project is a simple API for a TODO application, written in Python3.
 
 I am using FastAPI for my framework choice, as it is popular within the community and it has amazing documentation.
 
-There is a Makefile included to interact with the application:
+
+### Running the app
+
+I am using Docker containers for the application and it's databases (one for "prod" and one for testing), so to run the application you just need Docker installed on your system.
+
+There is a Makefile included to interact with the application
 
 To start the application, run:
 
